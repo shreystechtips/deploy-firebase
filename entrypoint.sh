@@ -10,7 +10,7 @@ if [ -z "${FIREBASE_PROJECT}" ]; then
     exit 1
 fi
 
-if [ "${GITHUB_REF}" != ("refs/heads/" + ${BRANCH_NAME}) ]; then
+if [ "${GITHUB_REF}" != "refs/heads/${BRANCH_NAME}" ]; then
     echo "Branch: ${GITHUB_REF}"
     echo "Aborting bad branch deployment"
     exit 1
