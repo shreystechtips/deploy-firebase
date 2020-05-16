@@ -13,19 +13,26 @@ name: Build and Deploy
 on:
   push:
     branches:
-    - master
+      - prod
 jobs:
-  main:
-    name: Build and Deploy
+  build:
+    name: Build and Deploy to Firebase Hosting
     runs-on: ubuntu-latest
     steps:
-    - name: Check out code
-      uses: actions/checkout@master
-    - name: Build Hugo
-      uses: lowply/build-hugo@v0.68.3
-    - name: Deploy to Firebase
-      uses: shreystechtips/deploy-firebase@master
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        FIREBASE_PROJECT: name-of-the-project
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Change to frontend repo
+        run: cd ''
+      - name: Install Dependencies
+        run: npm install --prefix "/"
+      - name: Build
+        run: npm run build --prefix "/"
+        env: 
+      - name: Deploy to Firebase
+        uses: shreystechtips/deploy-firebase@master
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SECRET }}
+          BRANCH_NAME: BRANCH_TO_PUSH
+          FIREBASE_PROJECT: FB_PROJ_NAME
+          DEPLOY_DIR: /
 ```
